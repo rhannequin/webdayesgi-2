@@ -52,6 +52,27 @@ $ mv app/assets/stylesheets/application.css app/assets/stylesheets/application.s
 //= require bootstrap-sprockets
 ```
 
+Modifier le fichier `app/views/layouts/application.html.erb` :
+
+```html
+<title>CRUD</title>
+<!-- -->
+<div class="container">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <%= link_to "CRUD", "#", class: "navbar-brand" %>
+  </div>
+</div>
+```
+
 ## Scaffold de `Cocktail`
 
-rails generate scaffold Cocktail name:string color:string --skip --skip-test-framework --skip-assets
+```sh
+$ bundle exec rails generate scaffold Cocktail name:string --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
+$ bundle exec rake db:migrate
+```

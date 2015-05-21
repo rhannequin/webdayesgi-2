@@ -1,0 +1,29 @@
+<div class="page-header">
+  <%= link_to new_cocktail_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Cocktail
+  <% end %>
+  <h1>Listing cocktails</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Name</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @cocktails) do |cocktail| %>
+            <td><%= cocktail.name %></td>
+            <td><%= link_to 'Show', cocktail %></td>
+        <td><%= link_to 'Edit', edit_cocktail_path(cocktail) %></td>
+        <td><%= link_to 'Destroy', cocktail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
