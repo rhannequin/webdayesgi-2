@@ -52,6 +52,18 @@ $ mv app/assets/stylesheets/application.css app/assets/stylesheets/application.s
 //= require bootstrap-sprockets
 ```
 
+## Création d'une page d'accueil
+
+```sh
+$ bundle exec rails generate controller Home index --skip-helper --skip-test-framework --skip-assets
+```
+
+Modifier le fichier `config/routes.rb` :
+
+```ruby
+root 'home#index'
+```
+
 Modifier le fichier `app/views/layouts/application.html.erb` :
 
 ```html
@@ -65,9 +77,20 @@ Modifier le fichier `app/views/layouts/application.html.erb` :
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <%= link_to "CRUD", "#", class: "navbar-brand" %>
+    <%= link_to 'CRUD', root_path, class: 'navbar-brand' %>
   </div>
 </div>
+<!-- -->
+```
+
+Modifier le fichier `app/views/home/index.html.erb` :
+
+```html
+<div class="page-header">
+  <h1>Wesh,</h1>
+</div>
+<p>L'abus d'alcool est dangereux pour la santé.</p>
+<p>Cdt.</p>
 ```
 
 ## Scaffold de `Alcohol`
@@ -93,4 +116,3 @@ end
 $ bundle exec rails generate scaffold Cocktail name:string alcohol:references --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
 $ bundle exec rake db:migrate
 ```
-

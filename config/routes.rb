@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'home#index'
+
   resources :cocktails
   resources :alcohols
   # The priority is based upon order of creation: first created -> highest priority.
