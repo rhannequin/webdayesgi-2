@@ -70,9 +70,27 @@ Modifier le fichier `app/views/layouts/application.html.erb` :
 </div>
 ```
 
+## Scaffold de `Alcohol`
+
+```sh
+$ bundle exec rails generate scaffold Alcohol name:string --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
+$ bundle exec rake db:migrate
+```
+
+Ajout d'une méthode dans le modèle Alcohol pour afficher son nom par défaut :
+
+```ruby
+class Alcohol < ActiveRecord::Base
+  def to_s
+    name
+  end
+end
+```
+
 ## Scaffold de `Cocktail`
 
 ```sh
-$ bundle exec rails generate scaffold Cocktail name:string --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
+$ bundle exec rails generate scaffold Cocktail name:string alcohol:references --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
 $ bundle exec rake db:migrate
 ```
+

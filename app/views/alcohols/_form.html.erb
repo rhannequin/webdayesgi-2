@@ -1,9 +1,8 @@
-<%= simple_form_for(@cocktail) do |f| %>
+<%= simple_form_for(@alcohol) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.association :alcohol %>
   </div>
 
   <div class="form-actions">
