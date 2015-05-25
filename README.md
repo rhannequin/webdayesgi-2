@@ -49,6 +49,7 @@ $ mv app/assets/stylesheets/application.css app/assets/stylesheets/application.s
 // app/assets/javascripts/application.js
 
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap-sprockets
 ```
 
@@ -138,6 +139,7 @@ end
 
 ```sh
 $ bundle exec rails generate model CocktailIngredient cocktail:references ingredient:references --skip-test-framework
+$ bundle exec rake db:migrate
 ```
 
 Modification des modèles `Cocktail` et `Ingredient` :
@@ -185,4 +187,51 @@ Modification des actions de `Cocktail` :
 <!-- app/controllers/cocktails_controller.rb -->
 
 params.require(:cocktail).permit(:name, :alcohol_id, ingredient_ids: [])
+```
+
+## Authentification avec Devise
+
+Ajouter `gem 'devise'` au Gemfile.
+
+```sh
+$ bundle exec rails generate devise:install
+$ bundle exec rails generate devise User
+$ bundle exec rake db:migrate
+```
+
+Ajouter l'instruction `before_action :authenticate_user!` aux contrôleurs AlcoholsController, CocktailsController, IngredientsController.
+
+Changer la navigation :
+
+```erb
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to 'CRUD', root_path, class: 'navbar-brand' %>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <li><%= link_to 'Cocktails', cocktails_path %></li>
+          <li><%= link_to 'Alcools', alcohols_path %></li>
+          <li><%= link_to 'Ingrédients', ingredients_path %></li>
+        </ul>
+      <% end %>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Se connecter', new_user_session_path %></li>
+          <li><%= link_to "S'inscrire", new_user_registration_path %></li>
+        <% end %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
 ```

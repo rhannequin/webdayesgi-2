@@ -1,4 +1,5 @@
 class CocktailsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_cocktail, only: [:show, :edit, :update, :destroy]
 
   # GET /cocktails
