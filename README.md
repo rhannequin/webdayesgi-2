@@ -133,3 +133,56 @@ class Ingredient < ActiveRecord::Base
   end
 end
 ```
+
+## `has_many :through` entre `Cocktail` et `Ingredient`
+
+```sh
+$ bundle exec rails generate model CocktailIngredient cocktail:references ingredient:references --skip-test-framework
+```
+
+Modification des modèles `Cocktail` et `Ingredient` :
+
+```ruby
+# app/models/cocktail.rb
+
+class Cocktail < ActiveRecord::Base
+  belongs_to :alcohol
+  has_many :cocktail_ingredients
+  has_many :ingredients, through: :cocktail_ingredients
+end
+
+
+# app/models/ingredient.rb
+
+class Ingredient < ActiveRecord::Base
+  has_many :cocktail_ingredients
+  has_many :cocktails, through: :cocktail_ingredients
+
+  def to_s
+    name
+  end
+end
+```
+
+Modification des actions de `Cocktail` :
+
+```html
+<!-- app/views/cocktails/show.html.erb -->
+
+<dl class="dl-horizontal">
+  <dt>Ingrédients :</dt>
+  <% @cocktail.ingredients.each do |ingredient| %>
+    <dd><%= link_to ingredient, ingredient %></dd>
+  <% end %>
+</dl>
+
+
+<!-- app/views/cocktails/_form.html.erb -->
+
+<%= f.association :ingredients, as: :check_boxes %>
+
+
+<!-- app/controllers/cocktails_controller.rb -->
+
+params.require(:cocktail).permit(:name, :alcohol_id, ingredient_ids: [])
+```

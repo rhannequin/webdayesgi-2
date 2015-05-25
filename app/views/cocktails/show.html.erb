@@ -16,5 +16,11 @@
 
   <dt>Alcohol:</dt>
   <dd><%= @cocktail.alcohol %></dd>
+</dl>
 
+<dl class="dl-horizontal">
+  <dt>Ingrédients :</dt>
+  <% @cocktail.ingredients.each do |ingredient| %>
+    <dd><%= link_to ingredient, ingredient %></dd>
+  <% end %>
 </dl>
