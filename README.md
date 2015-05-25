@@ -100,7 +100,7 @@ $ bundle exec rails generate scaffold Alcohol name:string --skip-helper --skip-j
 $ bundle exec rake db:migrate
 ```
 
-Ajout d'une méthode dans le modèle Alcohol pour afficher son nom par défaut :
+Ajout d'une méthode dans le modèle `Alcohol` pour afficher son nom par défaut :
 
 ```ruby
 class Alcohol < ActiveRecord::Base
@@ -115,4 +115,21 @@ end
 ```sh
 $ bundle exec rails generate scaffold Cocktail name:string alcohol:references --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
 $ bundle exec rake db:migrate
+```
+
+## Scaffold de `Ingredient`
+
+```sh
+$ bundle exec rails generate scaffold Ingredient name:string --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
+$ bundle exec rake db:migrate
+```
+
+Ajout d'une méthode dans le modèle `Ingredient` pour afficher son nom par défaut :
+
+```ruby
+class Ingredient < ActiveRecord::Base
+  def to_s
+    name
+  end
+end
 ```
