@@ -88,10 +88,10 @@ Modifier le fichier `app/views/home/index.html.erb` :
 
 ```html
 <div class="page-header">
-  <h1>Wesh,</h1>
+  <h1>Yo,</h1>
 </div>
-<p>L'abus d'alcool est dangereux pour la santé.</p>
-<p>Cdt.</p>
+<p>Excessive drinking is dangerous for the health, alcoholic beverages should be consumed with moderation.</p>
+<p>Regards.</p>
 ```
 
 ## Scaffold de `Alcohol`
