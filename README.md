@@ -94,34 +94,75 @@ Modifier le fichier `app/views/home/index.html.erb` :
 <p>Regards.</p>
 ```
 
+## Ajout de `friendly_id` au projet
+
+Ajouter `gem 'friendly_id'` au `Gemfile`.
+
+```sh
+$ bundle install
+$ bundle exec rails generate friendly_id
+```
+
 ## Scaffold de `Alcohol`
 
 ```sh
-$ bundle exec rails generate scaffold Alcohol name:string --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
+$ bundle exec rails generate scaffold Alcohol name:string slug:string:uniq --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
 $ bundle exec rake db:migrate
 ```
 
-Ajout d'une méthode dans le modèle `Alcohol` pour afficher son nom par défaut :
+Ajout de friendly_id et d'une méthode dans le modèle `Alcohol` pour afficher son nom par défaut :
 
 ```ruby
 class Alcohol < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
+
   def to_s
     name
   end
 end
 ```
 
+Ajout de `friendly_id` au contrôleur `AlcoholsController` :
+
+```ruby
+# app/controllers/alcohols_controller.rb
+
+#...
+@alcohol = Alcohol.friendly.find(params[:id])
+#...
+```
+
 ## Scaffold de `Cocktail`
 
 ```sh
-$ bundle exec rails generate scaffold Cocktail name:string alcohol:references --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
+$ bundle exec rails generate scaffold Cocktail name:string slug:string:uniq alcohol:references --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
 $ bundle exec rake db:migrate
+```
+
+Ajout de friendly_id et d'une méthode dans le modèle `Cocktail` pour afficher son nom par défaut :
+
+```ruby
+class Cocktail < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
+end
+```
+
+Ajout de `friendly_id` au contrôleur `CocktailsController` :
+
+```ruby
+# app/controllers/cocktails_controller.rb
+
+#...
+@cocktail = Cocktail.friendly.find(params[:id])
+#...
 ```
 
 ## Scaffold de `Ingredient`
 
 ```sh
-$ bundle exec rails generate scaffold Ingredient name:string --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
+$ bundle exec rails generate scaffold Ingredient name:string slug:string:uniq --skip-helper --skip-jbuilder --skip-test-framework --skip-assets
 $ bundle exec rake db:migrate
 ```
 
@@ -129,10 +170,23 @@ Ajout d'une méthode dans le modèle `Ingredient` pour afficher son nom par déf
 
 ```ruby
 class Ingredient < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
+
   def to_s
     name
   end
 end
+```
+
+Ajout de `friendly_id` au contrôleur `IngredientsController` :
+
+```ruby
+# app/controllers/ingredients_controller.rb
+
+#...
+@ingredient = Ingredient.friendly.find(params[:id])
+#...
 ```
 
 ## `has_many :through` entre `Cocktail` et `Ingredient`

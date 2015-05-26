@@ -11,6 +11,7 @@
     <thead>
       <tr>
             <th>Name</th>
+            <th>Slug</th>
             <th></th>
         <th></th>
         <th></th>
@@ -20,6 +21,7 @@
     <tbody>
       <%= content_tag_for(:tr, @ingredients) do |ingredient| %>
             <td><%= ingredient.name %></td>
+            <td><%= ingredient.slug %></td>
             <td><%= link_to 'Show', ingredient %></td>
         <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
         <td><%= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
