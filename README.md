@@ -172,7 +172,7 @@ Modification des actions de `Cocktail` :
 <!-- app/views/cocktails/show.html.erb -->
 
 <dl class="dl-horizontal">
-  <dt>Ingrédients :</dt>
+  <dt>Ingredients:</dt>
   <% @cocktail.ingredients.each do |ingredient| %>
     <dd><%= link_to ingredient, ingredient %></dd>
   <% end %>
@@ -219,16 +219,16 @@ Changer la navigation :
       <% if user_signed_in? %>
         <ul class="nav navbar-nav">
           <li><%= link_to 'Cocktails', cocktails_path %></li>
-          <li><%= link_to 'Alcools', alcohols_path %></li>
-          <li><%= link_to 'Ingrédients', ingredients_path %></li>
+          <li><%= link_to 'Alcohols', alcohols_path %></li>
+          <li><%= link_to 'Ingredients', ingredients_path %></li>
         </ul>
       <% end %>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
         <% else %>
-          <li><%= link_to 'Se connecter', new_user_session_path %></li>
-          <li><%= link_to "S'inscrire", new_user_registration_path %></li>
+          <li><%= link_to 'Log in', new_user_session_path %></li>
+          <li><%= link_to 'Sign in', new_user_registration_path %></li>
         <% end %>
       </ul>
     </div><!--/.nav-collapse -->
