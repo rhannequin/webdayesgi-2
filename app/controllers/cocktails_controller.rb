@@ -5,7 +5,7 @@ class CocktailsController < ApplicationController
   # GET /cocktails
   # GET /cocktails.json
   def index
-    @cocktails = Cocktail.all
+    @cocktails = Cocktail.includes(:alcohol)
   end
 
   # GET /cocktails/1

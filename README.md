@@ -17,7 +17,7 @@ Lancer `$ bundle install`.
 
 ## Ajout de bibliothèques
 
-```
+```ruby
 gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'bootstrap-generators'
@@ -127,16 +127,6 @@ class Alcohol < ActiveRecord::Base
 end
 ```
 
-Ajout de `friendly_id` au contrôleur `AlcoholsController` :
-
-```ruby
-# app/controllers/alcohols_controller.rb
-
-#...
-@alcohol = Alcohol.friendly.find(params[:id])
-#...
-```
-
 ## Scaffold de `Cocktail`
 
 ```sh
@@ -157,14 +147,18 @@ class Cocktail < ActiveRecord::Base
 end
 ```
 
-Ajout de `friendly_id` au contrôleur `CocktailsController` :
+Eviter les requêtes `n+1` pour la liste des cocktails :
 
 ```ruby
 # app/controllers/cocktails_controller.rb
 
-#...
-@cocktail = Cocktail.friendly.find(params[:id])
-#...
+class CocktailsController < ApplicationController
+  # ...
+  def index
+    @cocktails = Cocktail.includes(:alcohol)
+  end
+  # ...
+end
 ```
 
 ## Scaffold de `Ingredient`
@@ -189,16 +183,6 @@ class Ingredient < ActiveRecord::Base
     name_changed? || super
   end
 end
-```
-
-Ajout de `friendly_id` au contrôleur `IngredientsController` :
-
-```ruby
-# app/controllers/ingredients_controller.rb
-
-#...
-@ingredient = Ingredient.friendly.find(params[:id])
-#...
 ```
 
 ## `has_many :through` entre `Cocktail` et `Ingredient`
