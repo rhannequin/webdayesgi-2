@@ -5,4 +5,8 @@ class Cocktail < ActiveRecord::Base
   belongs_to :alcohol
   has_many :cocktail_ingredients
   has_many :ingredients, through: :cocktail_ingredients
+
+  def should_generate_new_friendly_id?
+    name_changed? || super
+  end
 end

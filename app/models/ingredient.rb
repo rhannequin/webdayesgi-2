@@ -8,4 +8,8 @@ class Ingredient < ActiveRecord::Base
   def to_s
     name
   end
+
+  def should_generate_new_friendly_id?
+    name_changed? || super
+  end
 end

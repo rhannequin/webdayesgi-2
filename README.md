@@ -120,6 +120,10 @@ class Alcohol < ActiveRecord::Base
   def to_s
     name
   end
+
+  def should_generate_new_friendly_id?
+    name_changed? || super
+  end
 end
 ```
 
@@ -146,6 +150,10 @@ Ajout de friendly_id et d'une méthode dans le modèle `Cocktail` pour afficher 
 class Cocktail < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
+
+  def should_generate_new_friendly_id?
+    name_changed? || super
+  end
 end
 ```
 
@@ -175,6 +183,10 @@ class Ingredient < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def should_generate_new_friendly_id?
+    name_changed? || super
   end
 end
 ```
