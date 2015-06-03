@@ -34,3 +34,7 @@
 .reveal .progress span {
   background: #b93131;
 }
+
+.rails-use table { margin: auto; }
+.rails-use table td { text-align: center; }
+.rails-use table img { border: none; margin: 0 20px; height: 80; }
